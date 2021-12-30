@@ -8,58 +8,82 @@
 import SwiftUI
 
 struct ContentView: View {
-    var emojis: Array<String> = ["🏎", "🚒", "🚕", "🚑", "🏍", "🛴", "🚲", "🛵", "🦼", "🚜"] // or [String]
-    @State var emojiCount: Int = 10
+    var emojis: Dictionary = [
+        "vehicles": ["🏎", "🚒", "🚕", "🚑", "🏍", "🛴", "🚲", "🛵", "🦼", "🚜"],
+        "animals": ["🐒", "🦆", "🦅", "🦉", "🦇", "🐺", "🐗", "🐴", "🐝", "🐛", "🐌", "🐢", "🦂", "🕷", "🦀", "🦐", "🐟", "🐳", "🦈", "🦭", "🐆", "🦍", "🐑", "🐕", "🐓"],
+        "hearts": ["❤️", "🧡", "💛", "💚", "🤍", "🖤", "💜", "💙", "🤎", "❤️‍🔥", "💔"]
+    ]
+    
+    @State var selectedTheme: String = "vehicles"
+//    @State var emojiCount: Int = 10
     
     var body: some View {
         VStack {
+            Text("Memorize!").font(.title)
+            Spacer()
             ScrollView {
-                LazyVGrid(columns: [GridItem(.adaptive(minimum: 80))]) {
-                    ForEach(emojis[0..<emojiCount], id: \.self, content: { emoji in
+                LazyVGrid(columns: [GridItem(.adaptive(minimum: 60))]) {
+                    ForEach(emojis[selectedTheme]!.shuffled(), id: \.self, content: { emoji in
                         CardView(content: emoji).aspectRatio(2/3, contentMode: .fit)
                     })
                 }.foregroundColor(.purple) // default will get passed to all inside Stack
             }
             Spacer()
             HStack {
-                remove
+                vehicles
                 Spacer()
-                add
+                animals
+                Spacer()
+                hearts
             }
             .font(.largeTitle)
-            .padding(.horizontal)
+            .padding(.horizontal, 30.0)
         }
             .padding(.all)
     }
     
-    var remove: some View {
+    var vehicles: some View {
         Button(action: {
-            if emojiCount > 1 {
-                emojiCount -= 1
-            }
+            selectedTheme = "vehicles"
         }, label: {
-            Image(systemName: "minus.square")
+            VStack {
+                Image(systemName: "car")
+                Text("Vehicles").font(.footnote)
+            }
         })
     }
     
-    var add: some View {
+    var animals: some View {
         Button(action: {
-            if emojiCount < emojis.count {
-                emojiCount += 1
-            }
+            selectedTheme = "animals"
         }, label: {
-            Image(systemName: "plus.square")
+            VStack {
+                Image(systemName: "hare")
+                Text("Animals").font(.footnote)
+            }
         })
     }
+    
+    var hearts: some View {
+        Button(action: {
+            selectedTheme = "hearts"
+        }, label: {
+            VStack {
+                Image(systemName: "heart")
+                Text("Hearts").font(.footnote)
+            }
+        })
+    }
+    
 }
 
 struct CardView: View {
     var content: String
-    @State var isFaceUp: Bool = false // init overwrites this default
+    @State var isFaceUp: Bool = true // init overwrites this default
     
     var body: some View {
         ZStack(content: {
-            let shape = RoundedRectangle(cornerRadius: 22.0)
+            let shape = RoundedRectangle(cornerRadius: 20.0)
             if isFaceUp {
                 shape.strokeBorder(lineWidth: 3)
                 shape.fill().foregroundColor(.white)
