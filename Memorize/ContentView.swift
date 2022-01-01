@@ -8,36 +8,36 @@
 import SwiftUI
 
 struct ContentView: View {
-    var emojis: Dictionary = [
-        "vehicles": ["🏎", "🚒", "🚕", "🚑", "🏍", "🛴", "🚲", "🛵", "🦼", "🚜"],
-        "animals": ["🐒", "🦆", "🦅", "🦉", "🦇", "🐺", "🐗", "🐴", "🐝", "🐛", "🐌", "🐢", "🦂", "🕷", "🦀", "🦐", "🐟", "🐳", "🦈", "🦭", "🐆", "🦍", "🐑", "🐕", "🐓"],
-        "hearts": ["❤️", "🧡", "💛", "💚", "🤍", "🖤", "💜", "💙", "🤎", "❤️‍🔥", "💔"]
-    ]
+    @ObservedObject var viewModel: EmojiMemoryGame
     
     @State var selectedTheme: String = "vehicles"
     @State var emojiCount: Int = 10
     
     var body: some View {
         VStack {
-            Text("Memorize!").font(.title)
-            Spacer()
+//            Text("Memorize!").font(.title)
+//            Spacer()
             ScrollView {
                 LazyVGrid(columns: [GridItem(.adaptive(minimum: widthThatBestFits(cardCount: emojiCount)))]) {
-                    ForEach(emojis[selectedTheme]!.shuffled()[0..<emojiCount], id: \.self, content: { emoji in
-                        CardView(content: emoji).aspectRatio(2/3, contentMode: .fit)
-                    })
+                    ForEach(viewModel.cards) { card in
+                        CardView(card: card)
+                            .aspectRatio(2/3, contentMode: .fit)
+                            .onTapGesture {
+                                viewModel.choose(card)
+                            }
+                    }
                 }.foregroundColor(.purple) // default will get passed to all inside Stack
             }
-            Spacer()
-            HStack {
-                vehicles
-                Spacer()
-                animals
-                Spacer()
-                hearts
-            }
-            .font(.largeTitle)
-            .padding(.horizontal, 30.0)
+//            Spacer()
+//            HStack {
+//                vehicles
+//                Spacer()
+//                animals
+//                Spacer()
+//                hearts
+//            }
+//            .font(.largeTitle)
+//            .padding(.horizontal, 30.0)
         }
             .padding(.all)
     }
@@ -52,68 +52,67 @@ struct ContentView: View {
         }
     }
     
-    var vehicles: some View {
-        Button(action: {
-            selectedTheme = "vehicles"
-            emojiCount = Int.random(in: 4...emojis[selectedTheme]!.count-1)
-        }, label: {
-            VStack {
-                Image(systemName: "car")
-                Text("Vehicles").font(.footnote)
-            }
-        })
-    }
-    
-    var animals: some View {
-        Button(action: {
-            selectedTheme = "animals"
-            emojiCount = Int.random(in: 4...emojis[selectedTheme]!.count-1)
-        }, label: {
-            VStack {
-                Image(systemName: "hare")
-                Text("Animals").font(.footnote)
-            }
-        })
-    }
-    
-    var hearts: some View {
-        Button(action: {
-            selectedTheme = "hearts"
-            emojiCount = Int.random(in: 4...emojis[selectedTheme]!.count-1)
-        }, label: {
-            VStack {
-                Image(systemName: "heart")
-                Text("Hearts").font(.footnote)
-            }
-        })
-    }
+//    var vehicles: some View {
+//        Button(action: {
+//            selectedTheme = "vehicles"
+//            emojiCount = Int.random(in: 4...emojis[selectedTheme]!.count-1)
+//        }, label: {
+//            VStack {
+//                Image(systemName: "car")
+//                Text("Vehicles").font(.footnote)
+//            }
+//        })
+//    }
+//
+//    var animals: some View {
+//        Button(action: {
+//            selectedTheme = "animals"
+//            emojiCount = Int.random(in: 4...emojis[selectedTheme]!.count-1)
+//        }, label: {
+//            VStack {
+//                Image(systemName: "hare")
+//                Text("Animals").font(.footnote)
+//            }
+//        })
+//    }
+//
+//    var hearts: some View {
+//        Button(action: {
+//            selectedTheme = "hearts"
+//            emojiCount = Int.random(in: 4...emojis[selectedTheme]!.count-1)
+//        }, label: {
+//            VStack {
+//                Image(systemName: "heart")
+//                Text("Hearts").font(.footnote)
+//            }
+//        })
+//    }
     
 }
 
 struct CardView: View {
-    var content: String
-    @State var isFaceUp: Bool = true // init overwrites this default
+    let card: MemoryGame<String>.Card
     
     var body: some View {
         ZStack(content: {
             let shape = RoundedRectangle(cornerRadius: 20.0)
-            if isFaceUp {
+            if card.isFaceUp {
                 shape.strokeBorder(lineWidth: 3)
                 shape.fill().foregroundColor(.white)
-                Text(content).font(.largeTitle)//.foregroundColor(.orange)
+                Text(card.content).font(.largeTitle)//.foregroundColor(.orange)
+            } else if card.isMatched {
+                shape.opacity(0)
             } else {
                 shape.fill()
             }
         })
-            .onTapGesture {
-                isFaceUp = !isFaceUp
-            }
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        let game = EmojiMemoryGame()
+        ContentView(viewModel: game)
             .preferredColorScheme(.dark)
 .previewInterfaceOrientation(.portraitUpsideDown)
 //        ContentView()
