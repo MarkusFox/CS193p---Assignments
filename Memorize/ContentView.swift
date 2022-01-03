@@ -34,7 +34,14 @@ struct ContentView: View {
                                 viewModel.choose(card)
                             }
                     }
-                }.foregroundColor(.purple) // default will get passed to all inside Stack
+                    .foregroundStyle(
+                        LinearGradient(
+                            colors: [viewModel.activeTheme.color, .gray],
+                            startPoint: .topLeading,
+                            endPoint: .bottomTrailing
+                        )
+                    )
+                }
             }
         }
             .padding(.all)
