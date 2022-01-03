@@ -10,13 +10,21 @@ import SwiftUI
 struct ContentView: View {
     @ObservedObject var viewModel: EmojiMemoryGame
     
-    @State var selectedTheme: String = "vehicles"
     @State var emojiCount: Int = 10
     
     var body: some View {
         VStack {
-//            Text("Memorize!").font(.title)
-//            Spacer()
+            HStack {
+                Text("Memorize \(viewModel.activeTheme.name)")
+                Spacer()
+                Button(action: {
+                    viewModel.newGame()
+                }, label: {
+                    Image(systemName: "shuffle")
+                })
+            }.font(.title2)
+            Spacer()
+            Text("Score: \(viewModel.score)")
             ScrollView {
                 LazyVGrid(columns: [GridItem(.adaptive(minimum: widthThatBestFits(cardCount: emojiCount)))]) {
                     ForEach(viewModel.cards) { card in
@@ -28,16 +36,6 @@ struct ContentView: View {
                     }
                 }.foregroundColor(.purple) // default will get passed to all inside Stack
             }
-//            Spacer()
-//            HStack {
-//                vehicles
-//                Spacer()
-//                animals
-//                Spacer()
-//                hearts
-//            }
-//            .font(.largeTitle)
-//            .padding(.horizontal, 30.0)
         }
             .padding(.all)
     }
