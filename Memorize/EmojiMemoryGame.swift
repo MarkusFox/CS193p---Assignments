@@ -84,4 +84,8 @@ class EmojiMemoryGame: ObservableObject {
         self.activeTheme = newTheme
         model = EmojiMemoryGame.createMemoryGame(theme: newTheme)
     }
+    
+    func shuffle() {
+        model.shuffle()
+    }
 }
