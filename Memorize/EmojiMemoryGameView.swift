@@ -12,13 +12,12 @@ struct EmojiMemoryGameView: View {
     
     @Namespace private var dealingNamespace
     
-//    @State private var emojiCount: Int = 10
-    
     var body: some View {
         ZStack {
             VStack {
                 HStack {
-                    Text("Memorize \(game.activeTheme.name)")
+                    Text(game.theme.name)
+                        .foregroundColor(game.theme.color)
                     Spacer()
                     Button(action: {
                         withAnimation {
@@ -26,7 +25,7 @@ struct EmojiMemoryGameView: View {
                             game.newGame()
                         }
                     }, label: {
-                        Image(systemName: "shuffle")
+                        Text("New")
                     })
                 }.font(.title2)
                 Spacer()
@@ -42,7 +41,7 @@ struct EmojiMemoryGameView: View {
         }.padding(.all)
     }
     
-    @State private var dealt = Set<Int>()
+    @State private var dealt: Set<Int> = []
     
     private func deal(_ card: EmojiMemoryGame.Card) {
         dealt.insert(card.id)
@@ -83,7 +82,7 @@ struct EmojiMemoryGameView: View {
         }
         .foregroundStyle(
             LinearGradient(
-                colors: [game.activeTheme.color, .gray],
+                colors: [game.theme.color, .gray],
                 startPoint: .topLeading,
                 endPoint: .bottomTrailing
             )
@@ -102,7 +101,7 @@ struct EmojiMemoryGameView: View {
         .frame(width: CardConstants.undealtWidth, height: CardConstants.undealtHeight)
         .foregroundStyle(
             LinearGradient(
-                colors: [game.activeTheme.color, .gray],
+                colors: [game.theme.color, .gray],
                 startPoint: .topLeading,
                 endPoint: .bottomTrailing
             )
@@ -171,14 +170,3 @@ struct CardView: View {
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        let game = EmojiMemoryGame()
-//        game.choose(game.cards.first!)
-        return EmojiMemoryGameView(game: game)
-            .preferredColorScheme(.dark)
-.previewInterfaceOrientation(.portraitUpsideDown)
-//        return EmojiMemoryGameView(game: game)
-//            .preferredColorScheme(.light)
-    }
-}

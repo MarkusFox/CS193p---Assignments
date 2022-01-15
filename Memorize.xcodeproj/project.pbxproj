@@ -16,6 +16,11 @@
 		28564B2D27846E4800AFACFB /* AspectVGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28564B2C27846E4800AFACFB /* AspectVGrid.swift */; };
 		28564B2F27847FDF00AFACFB /* Pie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28564B2E27847FDF00AFACFB /* Pie.swift */; };
 		2872C9CA27872D0C00334805 /* Cardify.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2872C9C927872D0C00334805 /* Cardify.swift */; };
+		2876BF7E278F8C36006CD4BE /* ThemeStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2876BF7D278F8C36006CD4BE /* ThemeStore.swift */; };
+		2876BF80278F9EA8006CD4BE /* ThemeChooser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2876BF7F278F9EA8006CD4BE /* ThemeChooser.swift */; };
+		2876BF8227909602006CD4BE /* ThemeEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2876BF8127909602006CD4BE /* ThemeEditor.swift */; };
+		2876BF8427931543006CD4BE /* RGBAColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2876BF8327931543006CD4BE /* RGBAColorExtensions.swift */; };
+		2876BF862793194A006CD4BE /* UtilityExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2876BF852793194A006CD4BE /* UtilityExtensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +35,11 @@
 		28564B2E27847FDF00AFACFB /* Pie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pie.swift; sourceTree = "<group>"; };
 		2872C9C927872D0C00334805 /* Cardify.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cardify.swift; sourceTree = "<group>"; };
 		2876BF74278F150A006CD4BE /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		2876BF7D278F8C36006CD4BE /* ThemeStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeStore.swift; sourceTree = "<group>"; };
+		2876BF7F278F9EA8006CD4BE /* ThemeChooser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeChooser.swift; sourceTree = "<group>"; };
+		2876BF8127909602006CD4BE /* ThemeEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeEditor.swift; sourceTree = "<group>"; };
+		2876BF8327931543006CD4BE /* RGBAColorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RGBAColorExtensions.swift; sourceTree = "<group>"; };
+		2876BF852793194A006CD4BE /* UtilityExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilityExtensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +80,11 @@
 				28564B2C27846E4800AFACFB /* AspectVGrid.swift */,
 				284AA4B82780B734000EC1FC /* MemoryGame.swift */,
 				284AA4BA2780BA06000EC1FC /* EmojiMemoryGame.swift */,
+				2876BF7F278F9EA8006CD4BE /* ThemeChooser.swift */,
+				2876BF8127909602006CD4BE /* ThemeEditor.swift */,
+				2876BF852793194A006CD4BE /* UtilityExtensions.swift */,
+				2876BF7D278F8C36006CD4BE /* ThemeStore.swift */,
+				2876BF8327931543006CD4BE /* RGBAColorExtensions.swift */,
 				282C9027277DC17C00DB83D8 /* Assets.xcassets */,
 				282C9029277DC17C00DB83D8 /* Preview Content */,
 			);
@@ -155,11 +170,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				28564B2F27847FDF00AFACFB /* Pie.swift in Sources */,
+				2876BF80278F9EA8006CD4BE /* ThemeChooser.swift in Sources */,
+				2876BF862793194A006CD4BE /* UtilityExtensions.swift in Sources */,
 				2872C9CA27872D0C00334805 /* Cardify.swift in Sources */,
 				284AA4B92780B734000EC1FC /* MemoryGame.swift in Sources */,
+				2876BF7E278F8C36006CD4BE /* ThemeStore.swift in Sources */,
 				282C9026277DC17900DB83D8 /* EmojiMemoryGameView.swift in Sources */,
+				2876BF8227909602006CD4BE /* ThemeEditor.swift in Sources */,
 				282C9024277DC17900DB83D8 /* MemorizeApp.swift in Sources */,
 				28564B2D27846E4800AFACFB /* AspectVGrid.swift in Sources */,
+				2876BF8427931543006CD4BE /* RGBAColorExtensions.swift in Sources */,
 				284AA4BB2780BA06000EC1FC /* EmojiMemoryGame.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
