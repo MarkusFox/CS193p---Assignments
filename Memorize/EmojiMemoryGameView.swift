@@ -23,6 +23,7 @@ struct EmojiMemoryGameView: View {
                         withAnimation {
                             dealt = []
                             game.newGame()
+                            gameStarted = false
                         }
                     }, label: {
                         Text("New")
@@ -37,11 +38,20 @@ struct EmojiMemoryGameView: View {
                     }
                 }
             }
-            deckBody
+            VStack {
+                Text("Tip the deck!")
+                    .font(.title3)
+                    .foregroundColor(game.theme.color)
+                    .opacity(gameStarted ? 0.0 : 1.0)
+                    .padding()
+                deckBody
+            }
         }.padding(.all)
     }
     
     @State private var dealt: Set<Int> = []
+    
+    @State private var gameStarted = false
     
     private func deal(_ card: EmojiMemoryGame.Card) {
         dealt.insert(card.id)
@@ -108,6 +118,9 @@ struct EmojiMemoryGameView: View {
         )
         .onTapGesture {
             // deal cards
+            withAnimation {
+                gameStarted = true
+            }
             for card in game.cards {
                 withAnimation(dealAnimation(for: card)) {
                     deal(card)
